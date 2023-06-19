@@ -68,7 +68,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   return GridView.builder(
                     itemCount: dataList.length,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,mainAxisExtent: 250),
+
+                        crossAxisCount: 2,mainAxisExtent: 290),
                     itemBuilder: (context, index) {
                       return Padding(
                         padding: const EdgeInsets.all(8.0),
@@ -76,7 +77,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                           onDoubleTap: () async {
                             await FireBaseHelper.fireBaseHelper.delete(dataList[index].docId!);
                           },
-                          onTap: () {
+                          onTap: ()       {
                             txtname = TextEditingController(text: dataList[index].name);
                             txtprice = TextEditingController(text: dataList[index].price);
                             txtrate = TextEditingController(text: dataList[index].rate);
@@ -157,6 +158,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                                             labelText: "Url"),
                                       ),
                                       SizedBox(height: 20),
+
+
                                       ElevatedButton(
                                           style: ElevatedButton.styleFrom(backgroundColor: Colors.blueGrey),
                                           onPressed: () async {
@@ -181,41 +184,58 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                           },
                           child: Container(
                             margin: EdgeInsets.all(10),
-                            height: 100,
-                            width: 40,
+                            height: 90,
+                            width: 100,
                             decoration: BoxDecoration(
                               // color: Colors.blueGrey.shade50,
-                                borderRadius: BorderRadius.circular(5),
-                                border: Border.all(width: 2.5,color: Colors.blueGrey)),
+                                borderRadius: BorderRadius.circular(12),
+                                // border: Border.all(width: 1.3,color: Colors.blueGrey)
+                            ),
                             child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Image.network("${dataList[index].image}"),
-                                Align(
-                                  alignment: Alignment.topLeft,
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(left: 20),
-                                    child: Container(
-                                      child: Column(
-                                        children: [
-                                          Text("${dataList[index].name}",style: TextStyle(fontSize: 25),),
-                                          Text("${dataList[index].quantity}",style: TextStyle(fontSize: 19),),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
+                                Image.network("${dataList[index].image}",),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 20),
+                                  child: Text("${dataList[index].name}",style: TextStyle(fontSize: 17),),
                                 ),
-                                // Text("${dataList[index].name}",style: TextStyle(fontSize: 25),),
-                                // Text("Rs.${dataList[index].price}",style: TextStyle(fontSize: 19),),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                  children: [
-                                    Text("${dataList[index].price}"),
-                                    Text("${dataList[index].rate}"),
-                                  ],
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 50),
+                                  child: Text("\$ ${dataList[index].price}",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.orange),),
                                 ),
                               ],
                             ),
+                            // child: Column(
+                            //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            //   children: [
+                            //     Container(
+                            //       height: 150,
+                            //         child: Image.network("${dataList[index].image}",fit: BoxFit.cover,)),
+                            //     Align(
+                            //       alignment: Alignment.topLeft,
+                            //       child: Padding(
+                            //         padding: const EdgeInsets.only(left: 20),
+                            //         child: Container(
+                            //           child: Column(
+                            //             children: [
+                            //               Text("${dataList[index].name}",style: TextStyle(fontSize: 22),),
+                            //               Text("Rs.${dataList[index].price}",style: TextStyle(fontSize: 12),),
+                            //             ],
+                            //           ),
+                            //         ),
+                            //       ),
+                            //     ),
+                            //     // Text("${dataList[index].name}",style: TextStyle(fontSize: 25),),
+                            //     // Text("Rs.${dataList[index].price}",style: TextStyle(fontSize: 19),),
+                            //     // Row(
+                            //     //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            //     //   children: [
+                            //     //     Text("${dataList[index].rate}"),
+                            //     //     Text("${dataList[index].description}"),
+                            //     //   ],
+                            //     // ),
+                            //   ],
+                            // ),
                           ),
                         ),
                       );

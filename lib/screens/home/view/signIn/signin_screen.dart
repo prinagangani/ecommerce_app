@@ -12,57 +12,70 @@ class SignInScreen extends StatefulWidget {
 class _SignInScreenState extends State<SignInScreen> {
   TextEditingController txtemail = TextEditingController();
   TextEditingController txtpass = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-          body: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                TextField(controller: txtemail,
-                  decoration: InputDecoration(hintText: "Enter your email",labelText: "Email",enabledBorder: OutlineInputBorder(),focusedBorder: OutlineInputBorder()),),
-                SizedBox(height: 10,),
-                TextField(
-                  controller: txtpass,
-                  decoration: InputDecoration(hintText: "Enter your Password",labelText: "Password",enabledBorder: OutlineInputBorder(),focusedBorder: OutlineInputBorder()),),
-                SizedBox(height: 10,),
-                TextButton(onPressed: () {
-                  Get.toNamed('/signup');
-                  },child: Text("Don't have an account ? Sign up"),),
-                SizedBox(height: 15),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          body: Stack(
+            children: [
+              Container(height:double.infinity,width:double.infinity,child: Image.network("https://cdn.wallpapersafari.com/66/48/JwW4mI.jpg",fit: BoxFit.cover,)),
+              Container(
+                height: double.infinity,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                    color: Colors.grey.shade500.withOpacity(0.85)
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    ElevatedButton(onPressed: () async {
-                      String? msg = await FireBaseHelper.fireBaseHelper.googleSignin();
-                      if(msg=="success")
-                      {
-                        Get.toNamed('/welcome');
-                      }
-                      else
-                        {
-                          Get.snackbar("", "$msg");
-                        }
-                    }, child: Text("Google")),
-                    ElevatedButton(onPressed: () async {
-                      String email = txtemail.text;
-                      String password = txtpass.text;
-                      String? isLogin = await FireBaseHelper.fireBaseHelper.signIn(email: email, password: password);
-                      if(isLogin == "success")
-                        {
-                          Get.snackbar("firebase", "successfull");
-                          Get.offAndToNamed('/welcome');
-                        }else
+                    TextField(controller: txtemail,
+                      decoration: InputDecoration(hintText: "Enter your email",labelText: "Email",enabledBorder: OutlineInputBorder(),focusedBorder: OutlineInputBorder()),),
+                    SizedBox(height: 10,),
+                    TextField(
+                      controller: txtpass,
+                      decoration: InputDecoration(hintText: "Enter your Password",labelText: "Password",enabledBorder: OutlineInputBorder(),focusedBorder: OutlineInputBorder()),),
+                    SizedBox(height: 10,),
+                    TextButton(onPressed: () {
+                      Get.toNamed('/signup');
+                      },child: Text("Don't have an account ? Sign up",style: TextStyle(color: Colors.blueGrey),),),
+                    SizedBox(height: 15),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        ElevatedButton(style: ElevatedButton.styleFrom(backgroundColor: Colors.blueGrey),onPressed: () async {
+                          String? msg = await FireBaseHelper.fireBaseHelper.googleSignin();
+                          if(msg=="success")
                           {
-                            Get.snackbar("$isLogin","");
+                            Get.toNamed('/welcome');
                           }
-                    }, child: Text("Login")),
+                          else
+                            {
+                              Get.snackbar("", "$msg");
+                            }
+                        }, child: Text("Google")),
+                        ElevatedButton(style: ElevatedButton.styleFrom(backgroundColor: Colors.blueGrey),onPressed: () async {
+                          String email = txtemail.text;
+                          String password = txtpass.text;
+                          String? isLogin = await FireBaseHelper.fireBaseHelper.signIn(email: email, password: password);
+                          if(isLogin == "success")
+                            {
+                              Get.snackbar("firebase", "successfull");
+                              Get.offAndToNamed('/welcome');
+                            }else
+                              {
+                                Get.snackbar("$isLogin","");
+                              }
+                        }, child: Text("Login")),
+                      ],
+                    ),
                   ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         )
     );

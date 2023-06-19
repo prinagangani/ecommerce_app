@@ -16,23 +16,35 @@ class _SignUpScreenState extends State<SignUpScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-          body: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                TextField(controller: txtemail,
-                  decoration: InputDecoration(hintText: "Enter your email",labelText: "Email",enabledBorder: OutlineInputBorder(),focusedBorder: OutlineInputBorder()),),
-                SizedBox(height: 10,),
-                TextField(
-                  controller: txtpass,
-                  decoration: InputDecoration(hintText: "Enter your Password",labelText: "Password",enabledBorder: OutlineInputBorder(),focusedBorder: OutlineInputBorder()),),
-               ElevatedButton(onPressed: () {
-                 FireBaseHelper.fireBaseHelper.signUp(email: txtemail.text, password: txtpass.text);
-                 Get.toNamed('/signin');
-               }, child: Text("Sign up"))
-              ],
-            ),
+          body: Column(
+            children: [
+              Container(height:double.infinity,width:double.infinity,child: Image.network("https://cdn.wallpapersafari.com/66/48/JwW4mI.jpg",fit: BoxFit.cover,)),
+              Container(
+                height: double.infinity,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                    color: Colors.grey.shade500.withOpacity(0.85)
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    TextField(controller: txtemail,
+                      decoration: InputDecoration(hintText: "Enter your email",labelText: "Email",enabledBorder: OutlineInputBorder(),focusedBorder: OutlineInputBorder()),),
+                    SizedBox(height: 10,),
+                    TextField(
+                      controller: txtpass,
+                      decoration: InputDecoration(hintText: "Enter your Password",labelText: "Password",enabledBorder: OutlineInputBorder(),focusedBorder: OutlineInputBorder()),),
+                   ElevatedButton(style: ElevatedButton.styleFrom(backgroundColor: Colors.blueGrey),onPressed: () {
+                     FireBaseHelper.fireBaseHelper.signUp(email: txtemail.text, password: txtpass.text);
+                     Get.toNamed('/signin');
+                   }, child: Text("Sign up"))
+                  ],
+                ),
+              ),
+            ],
           ),
     ));
   }
